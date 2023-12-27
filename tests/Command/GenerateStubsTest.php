@@ -15,7 +15,7 @@ final class GenerateStubsTest extends TestCase
         $cmd = new GenerateStubsCommand('stub');
         $tester = new CommandTester($cmd);
         // json extension is a PHPUnit dependency, so should always be present in this environment.
-        $tester->execute(['extension' => 'json']);
+        $tester->execute(['module' => 'json']);
         $tester->assertCommandIsSuccessful();
         $output = $tester->getDisplay();
         Assert::assertStringContainsString('function json_encode(', $output);
@@ -28,7 +28,7 @@ final class GenerateStubsTest extends TestCase
         $tester = new CommandTester($cmd);
         // json extension is a PHPUnit dependency, so should always be present in this environment.
         $tester->execute([
-            'extension' => 'json',
+            'module' => 'json',
             'output-file' => $guard->path,
         ]);
         $tester->assertCommandIsSuccessful();

@@ -15,16 +15,16 @@ final class GenerateStubsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Generates IDE stubs for an extension.')
-            ->addArgument('extension', InputArgument::REQUIRED, 'The name of the extension')
-            ->addArgument('output-file', InputArgument::OPTIONAL, 'The output file path')
+            ->setDescription('Generates IDE stubs for an extension module.')
+            ->addArgument('module', InputArgument::REQUIRED, 'The name of the module')
+            ->addArgument('output-file', InputArgument::OPTIONAL, 'The output file path. If absent, stubs are written to stdout.')
         ;
     }
 
     #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $ext = new ReflectionExtension($input->getArgument('extension'));
+        $ext = new ReflectionExtension($input->getArgument('module'));
         $code = StubsGenerator::generate($ext);
         if ($outputPath = $input->getArgument('output-file')) {
             $file = new \SplFileObject($outputPath, 'w');
