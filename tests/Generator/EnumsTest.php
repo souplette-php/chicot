@@ -1,14 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Souplette\Chicot\Tests;
+namespace Souplette\Chicot\Tests\Generator;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionEnum;
 use Souplette\Chicot\Mocks\TheNumbers;
 use Souplette\Chicot\Mocks\TheStrings;
 use Souplette\Chicot\Mocks\TheUnits;
+use Souplette\Chicot\Tests\GeneratorTestCase;
 
-final class ExtensionEnumTest extends GeneratorTestCase
+final class EnumsTest extends GeneratorTestCase
 {
     #[DataProvider('generateEnumProvider')]
     public function testGenerateEnum(string $name, string $expected): void

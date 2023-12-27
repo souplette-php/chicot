@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Souplette\Chicot\Tests;
+namespace Souplette\Chicot\Tests\Generator;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
@@ -9,8 +9,9 @@ use Souplette\Chicot\Mocks\Child;
 use Souplette\Chicot\Mocks\GrandChild;
 use Souplette\Chicot\Mocks\ReadOnlyMock;
 use Souplette\Chicot\Mocks\Root;
+use Souplette\Chicot\Tests\GeneratorTestCase;
 
-final class ExtensionClassTest extends GeneratorTestCase
+final class ClassesTest extends GeneratorTestCase
 {
     #[DataProvider('generateClassProvider')]
     public function testGenerateClass(string $name, string $expected): void

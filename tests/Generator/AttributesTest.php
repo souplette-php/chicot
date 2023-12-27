@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Souplette\Chicot\Tests;
+namespace Souplette\Chicot\Tests\Generator;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 use Souplette\Chicot\Mocks\AllTargetsAttr;
 use Souplette\Chicot\Mocks\ClassAndMethodAttr;
+use Souplette\Chicot\Tests\GeneratorTestCase;
 
-final class ExtensionAttributesTest extends GeneratorTestCase
+final class AttributesTest extends GeneratorTestCase
 {
     #[DataProvider('attributesProvider')]
     public function testAttributes(string $name, string $expected): void

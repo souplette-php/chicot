@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Souplette\Chicot\Tests;
+namespace Souplette\Chicot\Tests\Generator;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionFunction;
+use Souplette\Chicot\Tests\GeneratorTestCase;
 use function Souplette\Chicot\Mocks\by_ref_arg;
 use function Souplette\Chicot\Mocks\default_arg;
 use function Souplette\Chicot\Mocks\dnf_arg;
@@ -13,7 +14,7 @@ use function Souplette\Chicot\Mocks\union_arg;
 use function Souplette\Chicot\Mocks\variadic_arg;
 use function Souplette\Chicot\Mocks\with_doc_comment;
 
-final class ExtensionFunctionsTest extends GeneratorTestCase
+final class FunctionsTest extends GeneratorTestCase
 {
     #[DataProvider('functionsProvider')]
     public function testFunctions(callable $fn, string $expected): void

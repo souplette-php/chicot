@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Souplette\Chicot\Tests;
+namespace Souplette\Chicot\Tests\Generator;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use Souplette\Chicot\Tests\GeneratorTestCase;
 
-final class ExtensionConstantsTest extends GeneratorTestCase
+final class ConstantsTest extends GeneratorTestCase
 {
     #[DataProvider('generateConstantsProvider')]
     public function testGenerateConstants(array $constants, string $expected): void

@@ -58,9 +58,7 @@ final class AstBuilder
             default => $name,
         });
         foreach ($namespace->getConstants() as $name => $value) {
-            $builder->addStmt(new Stmt\Const_([
-                new Node\Const_($name, $this->builderFactory->val($value)),
-            ]));
+            $builder->addStmt($this->buildConstant($name, $value));
         }
         foreach ($namespace->getFunctions() as $function) {
             $builder->addStmt($this->buildFunction($function));
@@ -75,6 +73,13 @@ final class AstBuilder
             }
         }
         return $builder->getNode();
+    }
+
+    private function buildConstant(string $name, mixed $value): Stmt\Const_
+    {
+        return new Stmt\Const_([
+            new Node\Const_($name, $this->builderFactory->val($value)),
+        ]);
     }
 
     private function buildFunction(ReflectionFunction $function): Stmt\Function_

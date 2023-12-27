@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Souplette\Chicot\Tests;
+namespace Souplette\Chicot\Tests\Generator;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 use Souplette\Chicot\Mocks\ChildInterface;
 use Souplette\Chicot\Mocks\RootInterface;
+use Souplette\Chicot\Tests\GeneratorTestCase;
 
 final class ExtensionInterfaceTest extends GeneratorTestCase
 {
