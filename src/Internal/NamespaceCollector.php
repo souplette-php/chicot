@@ -33,10 +33,4 @@ final class NamespaceCollector
         ksort($map);
         return $map;
     }
-
-    private static function capitalize(string $ns): string
-    {
-        $parts = array_map(ucfirst(...), explode("\\", $ns));
-        return implode("\\", $parts);
-    }
 }
