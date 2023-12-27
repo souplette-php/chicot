@@ -129,6 +129,9 @@ final class AstBuilder
         }
         $builder->implement(...$this->resolveNames(ReflectionUtils::getOwnInterfaceNames($class)));
         foreach (ReflectionUtils::getOwnConstants($class) as $constant) {
+            if ($constant->isPrivate()) {
+                continue;
+            }
             $builder->addStmt($this->buildClassConst($constant));
         }
         foreach (ReflectionUtils::getOwnProperties($class) as $property) {
@@ -138,6 +141,9 @@ final class AstBuilder
             $builder->addStmt($this->buildProperty($property));
         }
         foreach (ReflectionUtils::getOwnMethods($class) as $method) {
+            if ($method->isPrivate()) {
+                continue;
+            }
             $builder->addStmt($this->buildMethod($method));
         }
         return $builder->getNode();
@@ -184,10 +190,9 @@ final class AstBuilder
         if ($constant->hasType()) {
             $builder->setType($this->buildType($constant->getType()));
         }
+        assert(!$constant->isPrivate());
         if ($constant->isProtected()) {
             $builder->makeProtected();
-        } elseif ($constant->isPrivate()) {
-            $builder->makePrivate();
         } else {
             $builder->makePublic();
         }
@@ -203,10 +208,9 @@ final class AstBuilder
         if ($doc = $property->getDocComment()) {
             $builder->setDocComment($doc);
         }
+        assert(!$property->isPrivate());
         if ($property->isProtected()) {
             $builder->makeProtected();
-        } elseif ($property->isPrivate()) {
-            $builder->makePrivate();
         } else {
             $builder->makePublic();
         }
@@ -239,10 +243,9 @@ final class AstBuilder
             } elseif ($method->isAbstract()) {
                 $builder->makeAbstract();
             }
+            assert(!$method->isPrivate());
             if ($method->isProtected()) {
                 $builder->makeProtected();
-            } elseif ($method->isPrivate()) {
-                $builder->makePrivate();
             } else {
                 $builder->makePublic();
             }

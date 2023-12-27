@@ -33,14 +33,12 @@ final class ExtensionClassTest extends GeneratorTestCase
             {
                 public final const int ZERO = 0;
                 protected const int ONE = 1;
-                private const int TWO = 2;
                 public static string $static = 'static';
                 /** @var int */
                 public readonly int $public;
                 protected string $protected = 'a';
                 public function publicMethod() : void {}
                 protected function protectedMethod() : void {}
-                private function privateMethod() : void {}
             }
             PHP,
         ];
