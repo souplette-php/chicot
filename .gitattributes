@@ -5,6 +5,7 @@
 /.editorconfig      export-ignore
 /.idea              export-ignore
 
+/build              export-ignore
 /tools              export-ignore
 /.phive             export-ignore
 /phpunit.xml        export-ignore
