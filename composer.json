@@ -1,0 +1,32 @@
+{
+  "name": "souplette/chicot",
+  "description": "Generates IDE stubs for extensions from PHP Reflection API",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ju1ius",
+      "email": "jules.bernable@gmail.com"
+    }
+  ],
+  "bin": ["bin/chicot.php"],
+  "autoload": {
+    "psr-4": {
+      "Souplette\\Chicot\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Souplette\\Chicot\\Tests\\": "tests/",
+      "Souplette\\Chicot\\Mocks\\": "mocks/"
+    },
+    "files": [
+      "mocks/functions.php"
+    ]
+  },
+  "require": {
+    "php": ">=8.3",
+    "composer-runtime-api": "^2.2",
+    "nikic/php-parser": "^4.18"
+  }
+}
