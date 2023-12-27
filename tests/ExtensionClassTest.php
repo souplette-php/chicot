@@ -75,6 +75,21 @@ final class ExtensionClassTest extends GeneratorTestCase
         ];
     }
 
+    public function testRelativeNamespaceResolving(): void
+    {
+        $code = self::generateStubs('acme', classes: [
+            new ReflectionClass(Child::class),
+            new ReflectionClass(GrandChild::class),
+        ]);
+        // Child class not resolved because it is not defined
+        // Child class should be resolved from the current namespace
+        $expected = <<<'PHP'
+        class Child extends \Souplette\Chicot\Mocks\Root {}
+        final class GrandChild extends Child {}
+        PHP;
+        self::assertCodeEq($expected, $code);
+    }
+
     protected static function assertCodeEq(string $expected, string $actual): void
     {
         $expected = <<<PHP
