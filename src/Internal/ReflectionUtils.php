@@ -35,6 +35,14 @@ final class ReflectionUtils
         }
     }
 
+    public static function getOwnConstants(ReflectionClass $class): array
+    {
+        return array_filter(
+            $class->getReflectionConstants(),
+            fn ($c) => $c->getDeclaringClass()->getName() === $class->getName(),
+        );
+    }
+
     public static function getOwnProperties(ReflectionClass $class): array
     {
         return array_filter(

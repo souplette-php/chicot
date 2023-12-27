@@ -128,8 +128,7 @@ final class AstBuilder
             $builder->extend($this->resolveName($parent->getName()));
         }
         $builder->implement(...$this->resolveNames(ReflectionUtils::getOwnInterfaceNames($class)));
-        foreach ($class->getConstants() as $name => $value) {
-            $constant = new ReflectionClassConstant($class->getName(), $name);
+        foreach (ReflectionUtils::getOwnConstants($class) as $constant) {
             $builder->addStmt($this->buildClassConst($constant));
         }
         foreach (ReflectionUtils::getOwnProperties($class) as $property) {

@@ -24,6 +24,9 @@ final class ExtensionEnumTest extends GeneratorTestCase
         yield 'int' => [
             TheNumbers::class,
             <<<'PHP'
+            /**
+             * The numbers.
+             */
             enum TheNumbers : int
             {
                 case TheBeginning = 0;

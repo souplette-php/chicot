@@ -2,6 +2,9 @@
 
 namespace Souplette\Chicot\Mocks;
 
+/**
+ * The numbers.
+ */
 enum TheNumbers: int
 {
     case TheBeginning = 0;
