@@ -4,5 +4,7 @@ namespace Souplette\Chicot\Mocks;
 
 interface ChildInterface
 {
+    public const int ANYTHING = 0;
 
+    public function getAnything(RootInterface $root): int;
 }
