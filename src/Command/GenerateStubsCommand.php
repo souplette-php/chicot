@@ -34,7 +34,7 @@ final class GenerateStubsCommand extends Command
             $file = new \SplFileObject($outputPath, 'w');
             $file->fwrite($code);
         } else {
-            $output->writeln($code);
+            $output->write($code);
         }
         return Command::SUCCESS;
     }
