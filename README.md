@@ -23,12 +23,12 @@ composer require souplette/chicot
 
 ## Usage
 
-When installed from the phar archive:
+List installed extension modules:
 ```sh
-chicot.phar help
+chicot modules
 ```
 
-When installed as a composer package:
+Generate stubs for the `core` module and writes them to a file named `core.stub.php`:
 ```sh
-./vendor/bin/chicot help
+chicot stub 'core' 'core.stub.php'
 ```
