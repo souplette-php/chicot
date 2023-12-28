@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class GenerateStubsCommand extends Command
@@ -25,7 +26,8 @@ final class GenerateStubsCommand extends Command
     #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $logger = new ConsoleLogger($output);
+        $stderr = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+        $logger = new ConsoleLogger($stderr);
         $ext = new ReflectionExtension($input->getArgument('module'));
         $code = StubsGenerator::generate($ext, $logger);
         if ($outputPath = $input->getArgument('output-file')) {
