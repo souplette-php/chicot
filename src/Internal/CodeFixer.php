@@ -11,7 +11,7 @@ final class CodeFixer
     {
         $output = self::fixFunctionBraces($input);
         $output = self::fixBlankLinesBetweenNamespaces($output);
-        return $output;
+        return self::ensureFinalNewLine($output);
     }
 
     private static function fixBlankLinesBetweenNamespaces(string $input): string
@@ -22,5 +22,13 @@ final class CodeFixer
     private static function fixFunctionBraces(string $input): string
     {
         return preg_replace('/\s+\{\s+}/', ' {}', $input);
+    }
+
+    private static function ensureFinalNewLine(string $input): string
+    {
+        if (!str_ends_with("\n", $input)) {
+            return $input . "\n";
+        }
+        return $input;
     }
 }
