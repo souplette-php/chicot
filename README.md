@@ -6,19 +6,24 @@ Generates IDE stubs for extension modules using PHP's Reflection API.
 
 ## Installation
 
-* Using [phive](https://phar.io/) (recommended)
-  ```sh
-  phive install souplett-php/chicot
-  ```
-* From the [releases page](https://github.com/souplette-php/chicot/releases)
-* Using composer:
-  ```sh
-  composer require souplette/chicot
-  ```
+### As a Phar archive
+
+Use [phive](https://phar.io/) (recommended):
+```sh
+phive install souplette-php/chicot
+```
+
+Alternatively, grab the phar archive from the [latest release](https://github.com/souplette-php/chicot/releases/latest).
+
+### As a composer package
+
+```sh
+composer require souplette/chicot
+```
 
 ## Usage
 
-When installed from the phar release:
+When installed from the phar archive:
 ```sh
 chicot.phar help
 ```
