@@ -6,7 +6,9 @@ use PhpParser\BuilderFactory;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\BitwiseOr;
 use ReflectionClass;
+use ReflectionClassConstant;
 use ReflectionMethod;
+use ReflectionProperty;
 
 final class ReflectionUtils
 {
@@ -35,6 +37,9 @@ final class ReflectionUtils
         }
     }
 
+    /**
+     * @return ReflectionClassConstant[]
+     */
     public static function getOwnConstants(ReflectionClass $class): array
     {
         return array_filter(
@@ -43,6 +48,9 @@ final class ReflectionUtils
         );
     }
 
+    /**
+     * @return ReflectionProperty[]
+     */
     public static function getOwnProperties(ReflectionClass $class): array
     {
         return array_filter(
@@ -51,6 +59,9 @@ final class ReflectionUtils
         );
     }
 
+    /**
+     * @return ReflectionMethod[]
+     */
     public static function getOwnMethods(ReflectionClass $class): array
     {
         return array_filter(

@@ -23,11 +23,24 @@
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.3" />
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
+  </component>
+  <component name="PhpStepFilterConfiguration">
+    <skipped_files>
+      <skipped_file file="$PROJECT_DIR$/vendor/composer" />
+    </skipped_files>
+    <skipped_functions>
+      <skipped_function name="Composer\Autoload\ClassLoader-&gt;loadClass" />
+      <skipped_function name="Composer\Autoload\ClassLoader-&gt;findFile" />
+      <skipped_function name="Composer\Autoload\ClassLoader-&gt;findFileWithExtension" />
+      <skipped_function name="strtr" />
+      <skipped_function name="strrpos" />
+    </skipped_functions>
   </component>
   <component name="PhpUnit">
     <phpunit_settings>

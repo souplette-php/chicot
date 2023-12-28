@@ -7,6 +7,7 @@ use PhpParser\Builder;
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionEnum;
@@ -28,13 +29,14 @@ final class AstBuilder
 
     private function __construct(
         private readonly ReflectionExtension $extension,
+        private readonly ?LoggerInterface $logger = null,
     ) {
         $this->builderFactory = new BuilderFactory();
     }
 
-    public static function of(ReflectionExtension $extension): self
+    public static function of(ReflectionExtension $extension, ?LoggerInterface $logger = null): self
     {
-        return new self($extension);
+        return new self($extension, $logger);
     }
 
     /**
@@ -58,6 +60,13 @@ final class AstBuilder
             default => $name,
         });
         foreach ($namespace->getConstants() as $name => $value) {
+            if (!self::canStubValue($value)) {
+                $this->logger?->warning("Cannot stub non-scalar value of type `{type}` for constant: `{name}`", [
+                    'type' => get_debug_type($value),
+                    'name' => $name,
+                ]);
+                continue;
+            }
             $builder->addStmt($this->buildConstant($name, $value));
         }
         foreach ($namespace->getFunctions() as $function) {
@@ -135,6 +144,13 @@ final class AstBuilder
         $builder->implement(...$this->resolveNames(ReflectionUtils::getOwnInterfaceNames($class)));
         foreach (ReflectionUtils::getOwnConstants($class) as $constant) {
             if ($constant->isPrivate()) {
+                continue;
+            }
+            if (!self::canStubValue($value = $constant->getValue())) {
+                $this->logger?->warning("Cannot stub non-scalar value of type `{type}` for class constant: `{name}`", [
+                    'type' => get_debug_type($value),
+                    'name' => sprintf('%s::%s', $class->getName(), $constant->getName()),
+                ]);
                 continue;
             }
             $builder->addStmt($this->buildClassConst($constant));
@@ -229,7 +245,14 @@ final class AstBuilder
             $builder->setType($this->buildType($property->getType()));
         }
         if ($property->hasDefaultValue()) {
-            $builder->setDefault($property->getDefaultValue());
+            if (self::canStubValue($value = $property->getDefaultValue())) {
+                $builder->setDefault($value);
+            } else {
+                $this->logger?->warning("Cannot stub non-scalar default value of type `{type}` for property: `{name}`", [
+                    'type' => get_debug_type($value),
+                    'name' => sprintf('%s::%s', $property->getDeclaringClass()->getName(), $property->getName()),
+                ]);
+            }
         }
         return $builder->getNode();
     }
@@ -281,8 +304,15 @@ final class AstBuilder
         }
         // TODO: check reflection.c to see how we can make them available
         if ($parameter->isOptional() && $parameter->isDefaultValueAvailable()) {
-            $default = $this->builderFactory->val($parameter->getDefaultValue());
-            $builder->setDefault($default);
+            if (self::canStubValue($value = $parameter->getDefaultValue())) {
+                $builder->setDefault($value);
+            } else {
+                $this->logger?->warning("Cannot stub non-scalar default value of type `{type}` for parameter: `{name}` in `{function}`", [
+                    'type' => get_debug_type($value),
+                    'name' => $parameter->getName(),
+                    'function' => $parameter->getDeclaringFunction()->getName(),
+                ]);
+            }
         }
 
         return $builder->getNode();
@@ -351,5 +381,10 @@ final class AstBuilder
             ]);
             $classBuilder->addAttribute($builder);
         }
+    }
+
+    private static function canStubValue(mixed $value): bool
+    {
+        return $value === null || \is_scalar($value) || \is_array($value);
     }
 }
