@@ -26,7 +26,7 @@ final class CodeFixer
 
     private static function ensureFinalNewLine(string $input): string
     {
-        if (!str_ends_with("\n", $input)) {
+        if (!str_ends_with($input, "\n")) {
             return $input . "\n";
         }
         return $input;
