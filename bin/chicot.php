@@ -6,7 +6,7 @@ use Souplette\Chicot\Command\GenerateStubsCommand;
 use Souplette\Chicot\Command\ListModulesCommand;
 use Symfony\Component\Console\Application;
 
-$app = new Application('chicot', '0.1.2');
+$app = new Application('chicot', '0.1.4');
 $app->add(new ListModulesCommand('modules'));
 $app->add(new GenerateStubsCommand('stub'));
 $app->run();
