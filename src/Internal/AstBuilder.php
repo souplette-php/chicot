@@ -329,7 +329,7 @@ final class AstBuilder
                     default => $this->resolveName($name),
                 },
             };
-            if ($type->allowsNull() && $name !== 'null') {
+            if ($type->allowsNull() && !\in_array($name, ['mixed', 'null'])) {
                 return "{$name}|null";
             }
             return $name;

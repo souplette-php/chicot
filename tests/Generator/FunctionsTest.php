@@ -9,6 +9,7 @@ use function Souplette\Chicot\Mocks\by_ref_arg;
 use function Souplette\Chicot\Mocks\default_arg;
 use function Souplette\Chicot\Mocks\dnf_arg;
 use function Souplette\Chicot\Mocks\intersection_arg;
+use function Souplette\Chicot\Mocks\mixed_arg;
 use function Souplette\Chicot\Mocks\nullable_arg;
 use function Souplette\Chicot\Mocks\union_arg;
 use function Souplette\Chicot\Mocks\variadic_arg;
@@ -27,6 +28,12 @@ final class FunctionsTest extends GeneratorTestCase
 
     public static function functionsProvider(): iterable
     {
+        yield 'mixed arg' => [
+            mixed_arg(...),
+            <<<'PHP'
+            function mixed_arg(mixed $arg) : void {}
+            PHP,
+        ];
         yield 'nullable arg' => [
             nullable_arg(...),
             <<<'PHP'

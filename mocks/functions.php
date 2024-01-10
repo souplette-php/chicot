@@ -5,6 +5,7 @@ namespace Souplette\Chicot\Mocks;
 use ArrayAccess;
 use Traversable;
 
+function mixed_arg(mixed $arg): void {}
 function nullable_arg(?string $arg): void {}
 function variadic_arg(string ...$arg): void {}
 function default_arg(string $arg = 'foo'): void {}
