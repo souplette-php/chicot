@@ -14,6 +14,7 @@ use ReflectionEnum;
 use ReflectionEnumBackedCase;
 use ReflectionExtension;
 use ReflectionFunction;
+use ReflectionFunctionAbstract;
 use ReflectionIntersectionType;
 use ReflectionMethod;
 use ReflectionNamedType;
@@ -97,9 +98,7 @@ final class AstBuilder
         if ($doc = $function->getDocComment()) {
             $builder->setDocComment($doc);
         }
-        if ($function->hasReturnType()) {
-            $builder->setReturnType($this->buildType($function->getReturnType()));
-        }
+        $this->buildReturnType($builder, $function);
         foreach ($function->getParameters() as $parameter) {
             $builder->addParam($this->buildParameter($parameter));
         }
@@ -208,8 +207,8 @@ final class AstBuilder
         if ($doc = $constant->getDocComment()) {
             $builder->setDocComment($doc);
         }
-        if ($constant->hasType()) {
-            $builder->setType($this->buildType($constant->getType()));
+        if ($type = $constant->getType()) {
+            $builder->setType($this->buildType($type));
         }
         assert(!$constant->isPrivate());
         if ($constant->isProtected()) {
@@ -241,8 +240,8 @@ final class AstBuilder
         if ($property->isReadOnly()) {
             $builder->makeReadonly();
         }
-        if ($property->hasType()) {
-            $builder->setType($this->buildType($property->getType()));
+        if ($type = $property->getType()) {
+            $builder->setType($this->buildType($type));
         }
         if ($property->hasDefaultValue()) {
             if (self::canStubValue($value = $property->getDefaultValue())) {
@@ -281,9 +280,7 @@ final class AstBuilder
         if ($method->isStatic()) {
             $builder->makeStatic();
         }
-        if ($method->hasReturnType()) {
-            $builder->setReturnType($this->buildType($method->getReturnType()));
-        }
+        $this->buildReturnType($builder, $method);
         foreach ($method->getParameters() as $parameter) {
             $builder->addParam($this->buildParameter($parameter));
         }
@@ -293,8 +290,8 @@ final class AstBuilder
     private function buildParameter(ReflectionParameter $parameter): Node\Param
     {
         $builder = $this->builderFactory->param($parameter->getName());
-        if ($parameter->hasType()) {
-            $builder->setType($this->buildType($parameter->getType()));
+        if ($type = $parameter->getType()) {
+            $builder->setType($this->buildType($type));
         }
         if ($parameter->isVariadic()) {
             $builder = $builder->makeVariadic();
@@ -316,6 +313,15 @@ final class AstBuilder
         }
 
         return $builder->getNode();
+    }
+
+    private function buildReturnType(Builder\FunctionLike $builder, ReflectionFunctionAbstract $rf): void
+    {
+        if ($type = $rf->getReturnType()) {
+            $builder->setReturnType($this->buildType($type));
+        } else if ($type = $rf->getTentativeReturnType()) {
+            $builder->setReturnType($this->buildType($type));
+        }
     }
 
     private function buildType(ReflectionType $type): string
