@@ -12,6 +12,11 @@ use ReflectionProperty;
 
 final class ReflectionUtils
 {
+    public static function canStubValue(mixed $value): bool
+    {
+        return $value === null || \is_scalar($value) || \is_array($value);
+    }
+
     /**
      * Splits a fully-qualified name into a [$namespace, $shortName] pair.
      * @return array{string, string}
