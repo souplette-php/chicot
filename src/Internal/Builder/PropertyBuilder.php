@@ -11,8 +11,8 @@ use Souplette\Chicot\Internal\ReflectionUtils;
 final readonly class PropertyBuilder
 {
     public function __construct(
-        private BuilderFactory $builderFactory,
-        private TypeBuilder $typeBuilder,
+        private BuilderFactory $builderFactory = new BuilderFactory(),
+        private TypeBuilder $typeBuilder = new TypeBuilder(),
         private ?LoggerInterface $logger = null,
     ) {
     }

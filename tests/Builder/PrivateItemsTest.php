@@ -12,7 +12,6 @@ use Souplette\Chicot\Internal\Builder\ClassConstantBuilder;
 use Souplette\Chicot\Internal\Builder\FunctionLikeBuilder;
 use Souplette\Chicot\Internal\Builder\PropertyBuilder;
 use Souplette\Chicot\Internal\Builder\TypeBuilder;
-use Souplette\Chicot\Internal\NameResolver;
 
 final class PrivateItemsTest extends TestCase
 {
@@ -34,7 +33,7 @@ final class PrivateItemsTest extends TestCase
         yield 'private constant' => [
             function() use($class) {
                 $rcc = new ReflectionClassConstant($class, 'NOPE');
-                $builder = new ClassConstantBuilder(new BuilderFactory(), new TypeBuilder(new NameResolver()));
+                $builder = new ClassConstantBuilder();
                 $builder->build($rcc);
             },
             'Private constants should not be stubbed.',
@@ -42,7 +41,7 @@ final class PrivateItemsTest extends TestCase
         yield 'private property' => [
             function() use($class) {
                 $rp = new ReflectionProperty($class, 'nope');
-                $builder = new PropertyBuilder(new BuilderFactory(), new TypeBuilder(new NameResolver()));
+                $builder = new PropertyBuilder();
                 $builder->build($rp);
             },
             'Private properties should not be stubbed.',
@@ -50,7 +49,7 @@ final class PrivateItemsTest extends TestCase
         yield 'private method' => [
             function() use($class) {
                 $rm = new ReflectionMethod($class, 'nope');
-                $builder = new FunctionLikeBuilder(new BuilderFactory(), new TypeBuilder(new NameResolver()));
+                $builder = new FunctionLikeBuilder();
                 $builder->buildMethod($rm);
             },
             'Private methods should not be stubbed.',

@@ -2,11 +2,10 @@
 
 namespace Souplette\Chicot;
 
-use PhpParser\PrettyPrinter\Standard as AstPrinter;
 use Psr\Log\LoggerInterface;
 use ReflectionExtension;
+use Souplette\Chicot\Internal\AstPrinter;
 use Souplette\Chicot\Internal\ExtensionBuilder;
-use Souplette\Chicot\Internal\CodeFixer;
 
 final class StubsGenerator
 {
@@ -15,8 +14,6 @@ final class StubsGenerator
         ?LoggerInterface $logger = null,
     ): string {
         $builder = new ExtensionBuilder($logger);
-        $printer = new AstPrinter(['shortArraySyntax' => true]);
-        $code = $printer->prettyPrintFile($builder->build($ext));
-        return CodeFixer::fix($code);
+        return AstPrinter::printFile($builder->build($ext));
     }
 }

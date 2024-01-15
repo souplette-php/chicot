@@ -2,14 +2,16 @@
 
 namespace Souplette\Chicot\Internal;
 
+use Souplette\Chicot\Internal\Contracts\ContainsName;
+
 final class NameResolver
 {
     public function __construct(
-        private ?ReflectionNamespace $namespace = null
+        private ?ContainsName $namespace = null
     ) {
     }
 
-    public function setCurrentNamespace(ReflectionNamespace $namespace): void
+    public function setCurrentNamespace(ContainsName $namespace): void
     {
         $this->namespace = $namespace;
     }

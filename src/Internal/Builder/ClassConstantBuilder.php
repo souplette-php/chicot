@@ -9,8 +9,8 @@ use ReflectionClassConstant;
 final readonly class ClassConstantBuilder
 {
     public function __construct(
-        private BuilderFactory $builderFactory,
-        private TypeBuilder $typeBuilder,
+        private BuilderFactory $builderFactory = new BuilderFactory(),
+        private TypeBuilder $typeBuilder = new TypeBuilder(),
     ) {
     }
 

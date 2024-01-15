@@ -25,7 +25,7 @@ final class ExtensionBuilder
         $factory = new BuilderFactory();
         $resolver = new NameResolver();
         $typeBuilder = new TypeBuilder($resolver);
-        $functionBuilder = new FunctionLikeBuilder($factory, $typeBuilder, $this->logger);
+        $functionBuilder = new FunctionLikeBuilder($factory, $resolver, $typeBuilder, $this->logger);
         $propertyBuilder = new PropertyBuilder($factory, $typeBuilder, $this->logger);
         $classConstantBuilder = new ClassConstantBuilder($factory, $typeBuilder);
         $this->namespaceBuilder = new NamespaceBuilder(

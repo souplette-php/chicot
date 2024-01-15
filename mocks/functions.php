@@ -9,7 +9,9 @@ function mixed_arg(mixed $arg): void {}
 function nullable_arg(?string $arg): void {}
 function variadic_arg(string ...$arg): void {}
 function default_arg(string $arg = 'foo'): void {}
+function constant_default_arg(int $a = \E_ERROR, int $b = \ReflectionClass::IS_FINAL): void {}
 function by_ref_arg(array &$arg): void {}
+function &return_by_ref(): int {}
 
 /**
  * @return void

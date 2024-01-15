@@ -11,7 +11,7 @@ use Souplette\Chicot\Internal\NameResolver;
 final readonly class TypeBuilder
 {
     public function __construct(
-        private NameResolver $nameResolver,
+        private NameResolver $nameResolver = new NameResolver(),
     ) {
     }
 

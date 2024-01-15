@@ -1,4 +1,4 @@
-.PHONY: phar, test, coverage
+.PHONY: phar test coverage
 
 phar:
 	@./tools/box compile

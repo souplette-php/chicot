@@ -4,8 +4,9 @@ namespace Souplette\Chicot\Internal;
 
 use ReflectionClass;
 use ReflectionFunction;
+use Souplette\Chicot\Internal\Contracts\ContainsName;
 
-final class ReflectionNamespace
+final class ReflectionNamespace implements ContainsName
 {
     /** @var array<string, mixed> */
     private array $constants = [];
